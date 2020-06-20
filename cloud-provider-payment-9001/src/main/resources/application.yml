@@ -1,0 +1,55 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: cloud-payment-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://106.15.177.236:3306/night?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+eureka:
+  instance:
+    instance-id: payment9001
+    # 访问路径可以显示IP信息
+    prefer-ip-address: true
+  client:
+    # 表示是否将自己注册进 EurekaServer 默认为 true
+    register-with-eureka: true
+    # 是否从 EurekaServer 抓取已有的注册信息，默认为 true. 单节点无所谓，集群必须设置为 true，才能配置 ribbon 使用负载均衡
+    fetch-registry: true
+    service-url:
+      # 集群版
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+#mybatis plus配置
+mybatis-plus:
+  #mapper.xml扫描
+  mapperLocations: classpath:/mapper/*/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.night.cloud.payment.model
+  # 枚举类注入--支持统配符 * 或者 ; 分割
+  #typeEnumsPackage: com.night.cloud.payment.ienum
+  #全局配置
+  global-config:
+    #DB策略配置
+    db-config:
+      #主键类型
+      idType: INPUT
+      #表前缀--全局配置后可省略@TableName()配置
+      #tablePrefix: night_
+      #逻辑删除值
+      #logicDeleteValue: 1
+      #逻辑不删除值
+      #logicNotDeleteValue: 0
+      #逻辑删除字段
+      #logicDeleteField: deleted
+  configuration:
+    #开启或关闭配置文件中的所有映射器已经配置的任何缓存
+    cacheEnabled: false
+    # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
