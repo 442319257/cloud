@@ -16,4 +16,16 @@ public interface IPaymentService {
 
     String hystrixTimeOut(Long id);
 
+    /**
+     *
+     * 服务熔断测试
+     *
+     * @param
+     * @return
+     * @author by 夜月
+     * @since 2020/6/21 0021
+     */
+    String hystrixCircuitBreaker(Long id);
+
+
 }

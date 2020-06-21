@@ -1,5 +1,6 @@
 package com.night.cloud.payment.service;
 
+import cn.hutool.core.util.IdUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.night.cloud.payment.iservice.IPaymentService;
@@ -40,4 +41,24 @@ public class PaymentServiceImpl implements IPaymentService {
         return "线程池: " + Thread.currentThread().getName() + "  hystrixTimeOutHandler, id: " + id;
     }
 
+    @HystrixCommand(fallbackMethod = "hystrixCircuitBreakerHandler", commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled",value = "true"), // 开启断路器
+            // 在时间窗口期10秒内,请求次数达到10次,请求失败率达到60%,会熔断
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"), // 请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"), // 时间窗口期
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"), // 失败率达到多少后熔断
+    })
+    @Override
+    public String hystrixCircuitBreaker(Long id) {
+        if (id < 0) {
+            throw new RuntimeException("id 不能为负数");
+        }
+        String serialNum = IdUtil.simpleUUID();
+
+        return "线程池: " + Thread.currentThread().getName() + "  hystrixCircuitBreaker, serialNum: " + serialNum;
+    }
+
+    public String hystrixCircuitBreakerHandler(Long id) {
+        return "id不能为负数, id: " + id;
+    }
 }

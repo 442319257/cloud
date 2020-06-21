@@ -45,6 +45,15 @@ public class PaymentController {
         return Result.success(content);
     }
 
+    @GetMapping("hystrix/circuit/breaker/{id}")
+    public Result hystrixCircuitBreaker(@PathVariable("id") Long id) {
+        String content = paymentService.hystrixCircuitBreaker(id);
+        log.info("serverPort:" + serverPort + ":*******:" + content);
+        return Result.success(content);
+    }
+
+
+
     @GetMapping("discovery")
     public Result discovery() {
         List<String> services = discoveryClient.getServices();
