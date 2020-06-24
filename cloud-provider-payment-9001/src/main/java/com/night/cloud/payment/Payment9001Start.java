@@ -17,6 +17,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 public class Payment9001Start {
 
     public static void main(String[] args) {
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         SpringApplication.run(Payment9001Start.class, args);
     }
 

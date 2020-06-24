@@ -23,6 +23,7 @@
         <module>cloud-feign-customer-order-80</module>
         <module>cloud-provider-hystrix-payment-9201</module>
         <module>cloud-feign-customer-hystrix-order-80</module>
+        <module>cloud-gatway-9999</module>
     </modules>
 
     <!-- spring boot基本环境 -->

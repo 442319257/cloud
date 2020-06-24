@@ -10,7 +10,13 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  data:
+    elasticsearch:
+      cluster-name: my-master-es
+      cluster-nodes: 47.103.158.51:9300
+      # cluster-nodes: 47.103.75.163:9300
+      repositories:
+        enabled: true
 
 eureka:
   instance:
@@ -23,8 +29,9 @@ eureka:
     # 是否从 EurekaServer 抓取已有的注册信息，默认为 true. 单节点无所谓，集群必须设置为 true，才能配置 ribbon 使用负载均衡
     fetch-registry: true
     service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
       # 集群版
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      # defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
 
 #mybatis plus配置
 mybatis-plus:
