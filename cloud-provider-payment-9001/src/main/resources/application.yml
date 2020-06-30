@@ -10,13 +10,22 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
-  data:
-    elasticsearch:
-      cluster-name: my-master-es
-      cluster-nodes: 47.103.158.51:9300
+  #data:
+    #elasticsearch:
+      #cluster-name: my-master-es
+      #cluster-nodes: 47.103.158.51:9300
+      #repositories:
+        #enabled: true
+  #cluster-name: master-es
+      # cluster-nodes: 47.103.158.51:9300
       # cluster-nodes: 47.103.75.163:9300
-      repositories:
-        enabled: true
+      #cluster-nodes: 106.15.177.236:9300
+      #repositories:
+        #enabled: true
+      #client:
+        #reactive:
+          #username: elastic
+          #password: qweasd
 
 eureka:
   instance:
