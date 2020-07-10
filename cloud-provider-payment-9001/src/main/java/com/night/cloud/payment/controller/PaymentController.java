@@ -23,7 +23,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
@@ -98,13 +97,13 @@ public class PaymentController {
         return Result.success(serverPort);
     }
 
-    @Resource
-    private QuestionDao questionDao;
+    /*@Resource
+    private QuestionDao questionDao;*/
 
-    @Resource
-    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+    /*@Resource
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;*/
 
-    @GetMapping("es2")
+    /*@GetMapping("es2")
     public Result queryByHighLight() {
         //ElasticsearchRestTemplate elasticsearchRestTemplate = (ElasticsearchRestTemplate) elasticsearchOperations;
         Pageable page = PageRequest.of(0, 10);
@@ -129,7 +128,7 @@ public class PaymentController {
                 SearchHits hits = response.getHits();
                 for (SearchHit searchHit : hits) {
                     if (hits.getHits().length <= 0) {
-                        return null;
+                        return new AggregatedPageImpl<T>((List<T>) questionBeans);
                     }
                     Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();
                     Map<String, HighlightField> highlightFieldsResult = searchHit.getHighlightFields();
@@ -160,7 +159,7 @@ public class PaymentController {
                 if (questionBeans.size() > 0) {
                     return new AggregatedPageImpl<T>((List<T>) questionBeans);
                 }
-                return null;
+                return new AggregatedPageImpl<T>((List<T>) questionBeans);
             }
 
             @Override
@@ -169,7 +168,7 @@ public class PaymentController {
             }
         });
         return Result.success(questionBeans);
-    }
+    }*/
 
 
     /*@GetMapping("es")
@@ -223,7 +222,7 @@ public class PaymentController {
         return Result.success(results);
     }*/
 
-    @GetMapping("es1")
+    /*@GetMapping("es1")
     public Result es1() {
         Pageable page = PageRequest.of(0, 10);
         QueryBuilder query = QueryBuilders.boolQuery()
@@ -236,17 +235,17 @@ public class PaymentController {
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<span style='color:red'>");
         highlightBuilder.postTags("</span>");
-        /*highlightBuilder.field("stem");*/
+        *//*highlightBuilder.field("stem");*//*
         HighlightBuilder.Field[] highlightFields = new HighlightBuilder.Field[]{new HighlightBuilder.Field("stem")};
 
         NativeSearchQuery searchQuery = new NativeSearchQuery(queryBuilder, null, null, highlightBuilder, highlightFields);
-        /*NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+        *//*NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(query)
                 .withHighlightBuilder(highlightBuilder)
                 .withPageable(page)
-                .build();*/
+                .build();*//*
         Page<QuestionBean> search = questionDao.search(searchQuery);
         return Result.success(search);
-    }
+    }*/
 
 }
